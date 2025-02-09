@@ -34,7 +34,6 @@ const HomePage: React.FC = () => {
         }
     };
     const hasMore = repositories.length > 0 && repositories.length > 20;
-    console.log(repositories.length, hasMore);
     return (
         <MainContainer>
             <Input
