@@ -33,7 +33,8 @@ const HomePage: React.FC = () => {
             dispatch(fetchRepositories({ username: debouncedUsername, page }));
         }
     };
-    const hasMore = repositories.length > 0 && repositories.length % 20 === 0;
+    const hasMore = repositories.length > 0 && repositories.length > 20;
+    console.log(repositories.length, hasMore);
     return (
         <MainContainer>
             <Input
@@ -45,6 +46,9 @@ const HomePage: React.FC = () => {
 
             {loading && <Loader />}
             {error && <ErrorMessage message={error} />}
+            {repositories.length === 0 && !loading && !error && (
+                <p style={{ fontFamily: 'Monserrat', fontSize: '25px' }}>У этого пользователя нет репозиториев</p>
+            )}
             <InfiniteScroll
                 dataLength={repositories.length}
                 next={loadMoreRepositories}

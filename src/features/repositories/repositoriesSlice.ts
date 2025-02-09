@@ -19,7 +19,8 @@ export const fetchRepositories = createAsyncThunk(
     'repositories/fetch',
     async (payload: { username: string; page: number }, { rejectWithValue }) => {
         const { username, page } = payload;
-        const token = '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';
+        const token = process.env.REACT_APP_GIT_TOKEN;
+
         try {
             const response = await fetch(`https://api.github.com/users/${username}/repos?per_page=20&page=${page}`, {
                 headers: {
