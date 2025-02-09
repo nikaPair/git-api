@@ -15,7 +15,7 @@ const HomePage: React.FC = () => {
     const debouncedUsername = useDebounce(username.toLocaleLowerCase(), 1000);
 
     const dispatch: AppDispatch = useDispatch();
-    const { repositories, loading, error, page } = useSelector((state: RootState) => state);
+    const { repositories, loading, error, page, totalCount } = useSelector((state: RootState) => state);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUsername(e.target.value);
@@ -33,7 +33,7 @@ const HomePage: React.FC = () => {
             dispatch(fetchRepositories({ username: debouncedUsername, page }));
         }
     };
-    const hasMore = repositories.length > 0 && repositories.length > 20;
+    const hasMore = repositories.length < totalCount.length;
     return (
         <MainContainer>
             <Input
